@@ -1,0 +1,24 @@
+# --- Core backend ---
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+python-multipart==0.0.12
+requests==2.32.3
+SQLAlchemy==2.0.36
+python-dotenv==1.0.1
+pydantic==2.10.3
+
+# --- Image handling for pest model ---
+pillow==11.0.0
+
+# --- AI pest detection ---
+# torch/torchvision: install the build matching your hardware.
+#   GPU (CUDA 12.1):
+#     pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+#   CPU only:
+#     pip install torch torchvision
+# transformers loads the pre-trained PlantVillage model from Hugging Face.
+# Pinned to 4.46.x for compatibility with torch 2.5.x.
+transformers==4.46.3
+huggingface_hub
+# tqdm is used by the training script in ../ai
+tqdm

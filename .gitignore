@@ -1,0 +1,31 @@
+# ---- Secrets (NEVER commit) ----
+.env
+**/.env
+!**/.env.example
+
+# ---- Python ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.db
+backend/uploads/
+backend/models/*.pt
+
+# ---- Node / frontend ----
+node_modules/
+dist/
+.vite/
+*.local
+
+# ---- ML / data ----
+ai/data/
+ai/_smoke/
+ai/_plantvillage/
+*.ckpt
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

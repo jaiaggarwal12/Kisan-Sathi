@@ -1,0 +1,42 @@
+[
+  {
+    "name": "PMFBY (Pradhan Mantri Fasal Bima Yojana)",
+    "benefit": "Crop insurance against natural calamities, pests and diseases.",
+    "eligibility": "All farmers growing notified crops in notified areas.",
+    "max_land_acres": null,
+    "state": null,
+    "apply": "Through banks, CSCs, or the PMFBY portal (pmfby.gov.in)."
+  },
+  {
+    "name": "Kisan Credit Card (KCC)",
+    "benefit": "Short-term, low-interest credit for crops and allied activities.",
+    "eligibility": "Small and marginal farmers, tenant farmers, sharecroppers.",
+    "max_land_acres": 12,
+    "state": null,
+    "apply": "Through any commercial/cooperative bank or via the KCC portal."
+  },
+  {
+    "name": "Soil Health Card Scheme",
+    "benefit": "Free soil testing and crop-wise nutrient recommendations.",
+    "eligibility": "All farmers with cultivable land.",
+    "max_land_acres": null,
+    "state": null,
+    "apply": "At the local agriculture office or soilhealth.dac.gov.in."
+  },
+  {
+    "name": "PM-KISAN",
+    "benefit": "Income support of Rs 6000/year in three instalments.",
+    "eligibility": "Landholding farmer families (subject to exclusions).",
+    "max_land_acres": null,
+    "state": null,
+    "apply": "Through pmkisan.gov.in or the local revenue/agriculture office."
+  },
+  {
+    "name": "Punjab Crop Residue Management Subsidy",
+    "benefit": "Subsidy on machinery to manage paddy straw without burning.",
+    "eligibility": "Farmers and custom hiring centres in Punjab.",
+    "max_land_acres": null,
+    "state": "Punjab",
+    "apply": "Through the Punjab Agriculture Department portal."
+  }
+]
