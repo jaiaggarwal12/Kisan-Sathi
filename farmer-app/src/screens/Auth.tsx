@@ -10,7 +10,7 @@ import { STATES_DISTRICTS, STATE_LIST } from "../data/locations";
 const DEMO_OTP = "1234";
 
 export function Auth() {
-  const { lang, setFarmer } = useApp();
+  const { lang, setFarmer, setLocation } = useApp();
   const [step, setStep] = useState<"phone" | "otp" | "profile">("phone");
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
@@ -23,6 +23,19 @@ export function Auth() {
   const [district, setDistrict] = useState("");
   const [state, setState] = useState("Punjab");
 
+  // Resolve the farmer's district/state to coordinates so the dashboard shows
+  // weather for THEIR place, not a default. Failures are non-fatal.
+  async function applyLocation(districtName?: string, stateName?: string) {
+    const place = [districtName, stateName].filter(Boolean).join(",");
+    if (!place) return;
+    try {
+      const geo = await api.geocode(place);
+      if (geo?.lat != null && geo?.lon != null) setLocation(geo.lat, geo.lon);
+    } catch {
+      /* keep default location if geocoding fails */
+    }
+  }
+
   async function verifyOtp() {
     if (otp !== DEMO_OTP) {
       setError("Incorrect OTP. Hint: 1234");
@@ -33,6 +46,7 @@ export function Auth() {
     try {
       // If the farmer already exists, log straight in.
       const farmer = await api.getFarmer(phone);
+      await applyLocation(farmer.district, farmer.state);
       setFarmer(farmer);
     } catch {
       // New farmer -> collect profile.
@@ -58,6 +72,7 @@ export function Auth() {
         state,
         language: lang,
       });
+      await applyLocation(district, state);
       setFarmer(farmer);
     } catch (e) {
       setError((e as Error).message);

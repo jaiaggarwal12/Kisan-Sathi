@@ -24,6 +24,28 @@ def _build_advisory(description: str, temp: float, humidity: int, wind: float) -
     return "Weather looks stable - a good day for routine field work."
 
 
+def geocode(place: str) -> dict:
+    """Resolve a place name (e.g. 'Ludhiana,Punjab') to coordinates."""
+    if not settings.OPENWEATHER_KEY:
+        raise WeatherError("OPENWEATHER_KEY is not configured in .env")
+    url = "https://api.openweathermap.org/geo/1.0/direct"
+    params = {"q": f"{place},IN", "limit": 1, "appid": settings.OPENWEATHER_KEY}
+    try:
+        res = requests.get(url, params=params, timeout=10)
+        data = res.json()
+    except requests.RequestException as exc:
+        raise WeatherError(f"Could not reach geocoding service: {exc}") from exc
+    if not data:
+        raise WeatherError(f"Location '{place}' not found")
+    top = data[0]
+    return {
+        "name": top.get("name"),
+        "state": top.get("state"),
+        "lat": top.get("lat"),
+        "lon": top.get("lon"),
+    }
+
+
 def get_weather(lat: float, lon: float) -> dict:
     if not settings.OPENWEATHER_KEY:
         raise WeatherError("OPENWEATHER_KEY is not configured in .env")

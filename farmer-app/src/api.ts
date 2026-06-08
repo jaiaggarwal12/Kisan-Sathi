@@ -46,6 +46,9 @@ export const api = {
   weather: (lat: number, lon: number) =>
     fetch(`${BASE}/weather/${lat}/${lon}`).then(handle),
 
+  geocode: (place: string) =>
+    fetch(`${BASE}/weather/geocode?place=${encodeURIComponent(place)}`).then(handle),
+
   ndviByFarmer: (phone: string) => fetch(`${BASE}/ndvi/farmer/${phone}`).then(handle),
 
   commodities: () => fetch(`${BASE}/mandi/commodities`).then(handle),

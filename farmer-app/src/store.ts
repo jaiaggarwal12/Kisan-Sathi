@@ -35,12 +35,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (saved) setFarmerState(JSON.parse(saved));
     const savedLang = localStorage.getItem("ks_lang") as Lang | null;
     if (savedLang) setLangState(savedLang);
+    const savedLoc = localStorage.getItem("ks_loc");
+    if (savedLoc) {
+      const { lat: la, lon: lo } = JSON.parse(savedLoc);
+      if (typeof la === "number" && typeof lo === "number") {
+        setLat(la);
+        setLon(lo);
+      }
+    }
   }, []);
 
   const setFarmer = (f: Farmer | null) => {
     setFarmerState(f);
     if (f) localStorage.setItem("ks_farmer", JSON.stringify(f));
-    else localStorage.removeItem("ks_farmer");
+    else {
+      localStorage.removeItem("ks_farmer");
+      localStorage.removeItem("ks_loc");
+    }
   };
 
   const setLang = (l: Lang) => {
@@ -51,6 +62,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setLocation = (la: number, lo: number) => {
     setLat(la);
     setLon(lo);
+    localStorage.setItem("ks_loc", JSON.stringify({ lat: la, lon: lo }));
   };
 
   return createElement(
